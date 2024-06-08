@@ -1,0 +1,139 @@
+*{
+    font-family: 'Roboto';
+    border: none;
+}
+
+$checkbox-color: #A8B0BF;
+$checkbox-size: 19px;
+
+.tableWrapper {
+    display: flex;
+    flex-direction: column;
+    background-color: #E9F3FF;
+    height: 100vh;
+    padding: 0 16px 0 16px;
+}
+
+.tableHeader {
+    display: flex;
+    font-size: 27px;
+    padding: 6px 16px 12px 4px;
+    color: #2F7FD5;
+}
+
+.tableContent {
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFF;
+    border-radius: 20px;
+    padding: 10px 0 10px 0;
+    height: -webkit-fill-available
+}
+
+.tableNavBar {
+    display: flex;
+    flex-direction: row;
+    background-color: #FFFF;
+    height: 56px;
+    padding-left: 15px;
+    gap: 8px;
+    align-items: center;
+}
+
+button {
+    width: 36px;
+    height: 36px;
+    background-repeat: no-repeat;
+    background-color: #FFFF
+}
+
+$center: center;
+
+button:hover {
+    background-color: #E2EEFF;
+}
+
+.plusButton {
+    background-image: url('../assets/plus.button.svg');
+    background-position: $center;
+    border-radius: 20px;
+}
+
+svg {
+    fill: #A8B0BF;
+    stroke: #A8B0BF;
+}
+
+.deleteButton {
+    background-image: url('../assets/trash.can.svg');
+    background-position: $center;
+    border-radius: 20px;
+}
+
+.tableRows, .tableNames {
+    display: flex;
+    flex-direction: row;
+    height: 47px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px 0 20px;
+    border-bottom: 1px solid #f3f3f3;
+}
+
+
+@mixin checkbox-styles {
+  input[type="checkbox"] {
+    appearance: none;
+    width: $checkbox-size;
+    height: $checkbox-size;
+    border: 2px solid $checkbox-color;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+
+    &:checked {
+      background-color: #4A95F7;
+      border: 2px solid #4A95F7;
+    }
+  }
+}
+
+.tableRows {
+  @include checkbox-styles;
+}
+
+.tableRows:hover {
+    background-color: #E9F0FF;
+}
+
+.tableNames {
+    @include checkbox-styles;
+}
+
+.tableNames li {
+    width: 280px;
+    list-style: none;
+    color: #2F4C97;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.tableRows li {
+    width: 280px;
+    list-style: none;
+    font-size: 14px;
+    font-weight: 400;
+
+}
+
+.tableRows li:hover {
+    text-decoration: underline;
+    color: #8FAFFF;
+    cursor: pointer;
+}
+
+.tableItems {
+    display: flex;
+    flex-direction: column;
+
+}
