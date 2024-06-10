@@ -83,6 +83,7 @@ export class ModalComponent implements OnInit {
   }
 
   deleteUsers() {
-    this.app.deleteUser()
+    this.app.deleteUser();
+    this.onClose();
   }
 }
