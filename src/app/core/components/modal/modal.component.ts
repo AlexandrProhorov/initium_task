@@ -66,7 +66,7 @@ export class ModalComponent implements OnInit {
         let index = this.app.users.findIndex(el=> el === this.app.userToEdit);
         this.app.users[index] = user;
         if(this.app.filteredUsers){
-          this.app.filteredUsers[index] = user;
+          this.app.filteredUsers = this.app.users
           this.service.fetchUsers(this.app.filteredUsers);
         }
       } else {
