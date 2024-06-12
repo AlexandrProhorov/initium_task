@@ -6,15 +6,22 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { User } from '../table_entities/user_entity';
-import { AppComponent, callTypes } from 'src/app/app.component';
-import { dataService } from '../data/data-service';
+import { User } from '../../table_entities/user_entity';
+import { AppComponent } from 'src/app/app.component';
+import { dataService } from '../../data/data-service';
+import { callTypes } from '../../table_entities/call_types';
+
+// В данном компоненте для создания формы была использована библиотека Angular Reactive Forms
+// Она позволяет создавать динамичные формы, основанные на принциаах реактивного программирования
+// Легко обновляются при изменении данных
+// Наличие встроенной валидации данных
 
 @Component({
   selector: 'modal-view',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
 })
+
 export class ModalComponent implements OnInit {
   @Input() callType: callTypes = callTypes.ADD;
   @Input() deleteCount: number | null = null;
@@ -39,9 +46,9 @@ export class ModalComponent implements OnInit {
       [
         this.userForm = this.fb.group({
           name: ['', [Validators.required, Validators.minLength(2)]],
-          surname: ['', [Validators.required, Validators.minLength(2)]],
+          surname: ['', [Validators.minLength(2)]],
           email: ['', [Validators.required, Validators.email]],
-          phone: ['', [Validators.required, this.phoneValidator]],
+          phone: ['', [this.phoneValidator]],
         }),
 
       ];
@@ -67,7 +74,25 @@ export class ModalComponent implements OnInit {
     }
   }
 
-  phoneValidator(control: AbstractControl): {[key: string]: any} | null {
+  get name() { return this.userForm.get('name'); } // Получение статуса конкретного инпута
+  get surName() { return this.userForm.get('surname'); }
+  get email() { return this.userForm.get('email'); }
+  get phone() { return this.userForm.get('phone'); }
+
+  isInvalidName() {
+    return this.name?.invalid && (this.name.dirty || this.name.touched);
+  }
+  isInvalidSurName() {
+    return this.surName?.invalid && (this.surName.dirty || this.surName.touched);
+  }
+  isInvalidEmail() {
+    return this.email?.invalid && (this.email.dirty || this.email.touched);
+  }
+  isInvalidPhone() {
+    return this.phone?.invalid && (this.phone.dirty || this.phone.touched);
+  }
+
+  phoneValidator(control: AbstractControl): {[key: string]: any} | null { // Проверяем валидность инпута
     const phonePattern = /^(8|\+7)\d{10}$/; // Паттерн для проверки номера телефона
     if (control.value && !phonePattern.test(control.value)) {
       return { 'invalidPhone': true };

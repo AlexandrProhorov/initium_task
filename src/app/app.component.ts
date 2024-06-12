@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from './core/table_entities/api_response';
 import { User } from './core/table_entities/user_entity';
 import { dataService } from './core/data/data-service';
+import { callTypes } from './core/table_entities/call_types';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ export class AppComponent implements OnInit {
   users: User[] = [];
   userToEdit: User | null = null;
   usersToDelete: User[] = [];
+  filteredUsers: User[] | null = null;
   constructor(private http: HttpClient, private service: dataService) {}
 
   ngOnInit(): void { //инициализация таблицы
@@ -52,8 +54,10 @@ export class AppComponent implements OnInit {
   }
 
   onModalDelete(){
-    this.isOpen = true;
-    this.callType = callTypes.DELETE;
+    if(this.usersToDelete.length > 0){
+      this.isOpen = true;
+      this.callType = callTypes.DELETE;
+    }
   }
 
   selectUser(user: User) { //ищем пользователя по индексу, в случае наличия в массиве удаляем(при повторном нажатии)
@@ -67,15 +71,33 @@ export class AppComponent implements OnInit {
 
   deleteUser() { //удаление пользователя
     if(this.usersToDelete){
-      this.users = this.users.filter(user => !this.usersToDelete?.includes(user)); 
+      for (let user of this.usersToDelete) {
+        let index = this.users.findIndex(u => u === user);
+        if (index !== -1) {
+          this.users.splice(index, 1);
+        }
+        if(this.filteredUsers){
+          index = this.filteredUsers?.findIndex(u => u === user);
+          if (index !== -1) {
+            this.filteredUsers.splice(index, 1);
+          }
+          index = this.users.findIndex(val => val === user)
+          if (index !== -1) {
+            this.users.splice(index, 1);
+          }
+        }
+      }
       this.service.fetchUsers(this.users);
       this.usersToDelete = [];
     }
   }
-}
 
-export enum callTypes  { //набор действий с формой(открыть для записи/редактирования/удаления)
-  ADD,
-  EDIT,
-  DELETE,
+  filterUsers(filter: string) { //фильтрация всех атрибутов пользователя(имя, фамилия, почта, номер) по заданному фильтру
+    this.filteredUsers = this.users.filter(user => {
+      return user.name.toLowerCase().includes(filter.toLowerCase()) ||
+             user.surname.toLowerCase().includes(filter.toLowerCase()) ||
+             user.email.toLowerCase().includes(filter.toLowerCase()) ||
+             user.phone.includes(filter);
+    }) || [];
+  }
 }

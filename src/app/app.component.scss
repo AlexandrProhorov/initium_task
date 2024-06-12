@@ -27,7 +27,7 @@ $checkbox-size: 19px;
     background-color: #FFFF;
     border-radius: 20px;
     padding: 10px 0 10px 0;
-    height: -webkit-fill-available
+    padding-right: 25px;
 }
 
 .tableNavBar {
@@ -38,6 +38,12 @@ $checkbox-size: 19px;
     padding-left: 15px;
     gap: 8px;
     align-items: center;
+}
+
+.tableNavBar input {
+    margin-left: 5%;
+    outline: none;
+    border-bottom: 1px solid #2F7FD5;
 }
 
 button {
@@ -79,7 +85,6 @@ svg {
     padding: 0 15px 0 20px;
     border-bottom: 1px solid #f3f3f3;
 }
-
 
 @mixin checkbox-styles {
   input[type="checkbox"] {
@@ -136,4 +141,13 @@ svg {
     display: flex;
     flex-direction: column;
 
+}
+
+.rightFloats {
+    display: flex;
+}
+
+.rightFloat {
+    display: flex;
+    justify-content: flex-end;
 }

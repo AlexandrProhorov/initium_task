@@ -5,6 +5,7 @@
     <div class="tableNavBar">
       <button class="plusButton" (click)="onModalOpen()"></button>
       <button class="deleteButton" (click)="onModalDelete()"></button>
+      <filter-view (onChange)="filterUsers($event)"></filter-view>
     </div>
 
     <modal-view *ngIf="isOpen === true" [callType]="callType" [deleteCount]="usersToDelete.length"></modal-view>
@@ -13,16 +14,20 @@
       <input type="checkbox">
       <li>Имя</li>
       <li>Фамилия</li>
-      <li>E-mail</li>
-      <li>Телефон</li>
+      <div class="rightFloats">
+        <li class="rightFloat">E-mail</li>
+        <li class="rightFloat">Телефон</li>
+      </div>
     </div>
 
-    <div class="tableRows" *ngFor="let user of users">
+    <div class="tableRows" *ngFor="let user of filteredUsers ? filteredUsers : users">
       <input type="checkbox" (click)="selectUser(user)">
       <li (click)="onEditModalOpen(user)">{{user.name}}</li>
       <li>{{user.surname}}</li>
-      <li>{{user.email}}</li>
-      <li>{{user.phone}}</li>
+      <div class="rightFloats">
+        <li class="rightFloat">{{user.email}}</li>
+        <li class="rightFloat">{{user.phone}}</li>
+      </div>
     </div>
 
   </div>
