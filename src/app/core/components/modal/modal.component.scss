@@ -83,17 +83,6 @@ button {
     background-color: white;
 }
 
-// .formWrapper input:invalid ~ label {
-//     display: block;
-//     position: absolute;
-//     left: 15px;
-//     color: red;
-//     padding: 0 5px;
-//     z-index: 200;
-//     background-color: white;
-// }
-
-
  .input-name:focus+label,
  .input-name:invalid+label {
      top: -10px
@@ -177,15 +166,6 @@ button {
     background-color: #D8DEE9;
     color: white;
 }
-
-// #usersForm:invalid input {
-//     border: 1px solid red;
-//     color: red;
-// }
-
-// #usersForm:invalid label {
-//     color: red;
-// }
 
 .submitButton:hover {
     background-color: #3C7CF8;
