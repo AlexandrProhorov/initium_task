@@ -68,6 +68,8 @@ export class ModalComponent implements OnInit {
         if(this.app.filteredUsers){
           this.app.filteredUsers = this.app.users
           this.service.fetchUsers(this.app.filteredUsers);
+        } else {
+          this.service.fetchUsers(this.app.users);
         }
       } else {
         this.app.users.push(user);
@@ -76,7 +78,7 @@ export class ModalComponent implements OnInit {
           this.service.fetchUsers(this.app.filteredUsers);
         }
       }
-      this.service.fetchUsers(this.app.users);
+
     
     this.onClose();
     }
