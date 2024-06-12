@@ -67,6 +67,10 @@ export class ModalComponent implements OnInit {
         this.app.users[index] = user;
       } else {
         this.app.users.push(user);
+        if(this.app.filteredUsers){
+          this.app.filteredUsers.push(user)
+          this.service.fetchUsers(this.app.filteredUsers);
+        }
       }
       this.service.fetchUsers(this.app.users);
     
